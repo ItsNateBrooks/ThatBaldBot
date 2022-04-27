@@ -1,11 +1,11 @@
 const { Client, Intents } = require('discord.js')
 require("dotenv").config()
 
-
 const client = new Client({ 
     intents: [
-        Intents.FLAGS.GUILDS, 
-        Intents.FLAGS.GUILD_MESSAGES
+        "GUILDS", 
+        "GUILD_MESSAGES",
+        "GUILD_MEMBERS"
     ] 
 })
 
@@ -14,13 +14,8 @@ client.once('ready', () => {
 
 })
 
-client.on("messageCreate", (message) => {
-    if(message.content.includes("hi")|| message.content.includes("Hi")){
-        message.reply("Yous a Bitch")
-    }
-})
+const commandHandler = require("./commands")
 
-
-
+client.on("message", commandHandler)
 
 client.login(process.env.TOKEN)
