@@ -1,6 +1,9 @@
 const { Client, Intents } = require('discord.js')
 require("dotenv").config()
 
+const fetch = require('node-fetch')
+
+
 const client = new Client({ 
     intents: [
         "GUILDS", 
