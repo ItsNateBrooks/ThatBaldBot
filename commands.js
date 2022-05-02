@@ -6,7 +6,7 @@ const gifs = ["boi", "oof", "xqc", "valheim"]
 const commands = {rps, gif, ttt}
 const commandsArr = ["rps", "gif", "ttt"]
 
-function multipleExist(arr, values) {
+function arrayContains(arr, values) {
     return values.every(value => {
       return arr.includes(value);
     });
@@ -16,7 +16,7 @@ module.exports = function (msg){
     if(msg.author.bot) return;
     let tokens = msg.content.toLowerCase().split(" ")
     
-    if(multipleExist(gifs, tokens) ){
+    if(arrayContains(gifs, tokens) ){
         commands.gif(msg, tokens)
     }
 
