@@ -1,11 +1,13 @@
 let boardSet = false
-let marksSet = false
 let gameWon = false
 let playingGame = false
-let locs = []
+let player1Set = false
+let player2Set = false
 let boardSpaceMarked = [false, false, false, false, false, false, false, false, false]
-let userMark = " "
-let botMark = " "
+let acceptedInputs = ["1","2","3","4","5","6","7","8","9"]
+let playMark1
+let playMark2
+let lastPlayer
 let displayBoard = [
         "#","-","-","-","#\n",
         "|","1 ","2","3","|\n",
@@ -17,28 +19,36 @@ let trueBoard = [["0","1","2"],
                  ["3","4","5"],
                  ["6","7","8"]]
 
+let player1 = ""
+let player2 = ""
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
 }
 
 function reset(){
     boardSet = false
-    marksSet = false
-    playingGame = false
     gameWon = false
+    playingGame = false
+    player1Set = false
+    player2Set = false
     boardSpaceMarked = [false, false, false, false, false, false, false, false, false]
-    userMark = " "
-    botMark = " "
+    playMark1 = null
+    playMark2 = null
+    lastPlayer = null
     displayBoard = [
-        "#","-","-","-","#\n",
-        "|"," 1","2","3","|\n",
-        "|","4","5","6","|\n",
-        "|","7","8","9","|\n",
-        "#","-","-","-","#\n",]
-
+            "#","-","-","-","#\n",
+            "|","1 ","2","3","|\n",
+            "|","4","5","6","|\n",
+            "|","7","8","9","|\n",
+            "#","-","-","-","#\n",]
+    
     trueBoard = [["0","1","2"],
-                 ["3","4","5"],
-                 ["6","7","8"]]
+                     ["3","4","5"],
+                     ["6","7","8"]]
+    
+    player1 = ""
+    player2 = ""
 }
 
 function compare3Vals(arg1, arg2, arg3) {
@@ -74,18 +84,18 @@ function checkWin(board, msg) {
     checkColumns(board)
     checkRows(board)
     if(gameWon == true){
-        msg.reply("Thats game, GG")
+        msg.reply(lastPlayer + " has won, GG!")
         reset()
     }
 }
 
-function markHandler (msg, boardMarkedIndex, disBoardLoc, trueBoardLoc1, trueBoardLoc2) {
+function markHandler (msg, boardMarkedIndex, disBoardLoc, trueBoardLoc1, trueBoardLoc2, playMark) {
     if(boardSpaceMarked[boardMarkedIndex]){
         msg.reply("Bruv, you can't just place where someone's already placed before, go again... ")
     }
     else{
-        displayBoard[disBoardLoc] = userMark
-        trueBoard[trueBoardLoc1][trueBoardLoc2] = userMark
+        displayBoard[disBoardLoc] = playMark
+        trueBoard[trueBoardLoc1][trueBoardLoc2] = playMark
         msg.reply("Board:\n" + displayBoard.join(" ") + "\n ")
         boardSpaceMarked[boardMarkedIndex] = true
     }
@@ -118,55 +128,57 @@ function getCoordNums (loc) {
     }[loc]
 }
 
-function reset(){
-    boardSet = false
-    marksSet = false
-    playingGame = false
-    gameWon = false
-    userMark = " "
-    botMark = " "
-    displayBoard = [
-        "#","-","-","-","#\n",
-        "|"," 1","2","3","|\n",
-        "|","4","5","6","|\n",
-        "|","7","8","9","|\n",
-        "#","-","-","-","#\n",]
-
-    trueBoard = 
-    [["0","1","2"],
-     ["3","4","5"],
-     ["6","7","8"]]
-}
-
 
 
 module.exports = function (msg, args){
     
     if(boardSet == false){
-        msg.reply("Board Set:\n" + displayBoard.join(" ") + "\n Would you like to be Xs or Os? (reply with !ttt X or !ttt O)")
+        msg.reply("Board Set:\n" + displayBoard.join(" ") + "\n Since this is a two player game, someone needs to be Xs and someone needs to be Os? (reply with !ttt X to be X or !ttt O to be O)")
         boardSet = true;
-    }else if(marksSet == false){
+    }else if(player1Set == false){
         if(args[0] == 'o'){
-            userMark = "O"
-            botMark = "X"
-            marksSet = true
+            playMark1 = "O"
+            playMark2 = "X"
+            player1Set = true
             playingGame = true
-            msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
+            player1 = msg.author.username
+            msg.reply("Player 1 ("+ playMark1 +"):\n" + player1 + "\n ")
+            //msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
         }else if(args[0] == 'x'){
-            userMark = "X"
-            botMark = "O"
-            marksSet = true
+            playMark1 = "X"
+            playMark2 = "O"
+            player1Set = true
             playingGame = true
-            msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
+            player1 = msg.author.username
+            msg.reply("Player 1 ("+ playMark1 +"):\n" + player1 + "\n ")
+            //msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
         }else {
             msg.reply("Bruh, I just said reply with !ttt X or !ttt 0")
         }
-    }else if(playingGame && args[0] != undefined){
-
+    }else if(player2Set == false){
+        player2 = msg.author.username
+        msg.reply("Player 2 ("+ playMark2 +"):\n" + player2 + "\n ")
+        player2Set = true
+    }else if(playingGame && acceptedInputs.includes(args[0])){
         let cords = getCoordNums(args[0]).split(" ")
-        markHandler(msg, parseInt(args[0])-1, parseInt(getLocationNum(args[0])), parseInt(cords[0]), parseInt(cords[1]))
-        checkWin(trueBoard, msg)
         
+        switch (msg.author.username){
+            case (lastPlayer):
+                msg.reply("It is not your turn, please wait for the other player to make a move before you go...")
+            break
+            case (player1):
+                markHandler(msg, parseInt(args[0])-1, parseInt(getLocationNum(args[0])), parseInt(cords[0]), parseInt(cords[1]), playMark1)
+                checkWin(trueBoard, msg)
+            break
+            case (player2):
+                markHandler(msg, parseInt(args[0])-1, parseInt(getLocationNum(args[0])), parseInt(cords[0]), parseInt(cords[1]), playMark2)
+                checkWin(trueBoard, msg)
+            break
+            default:
+                msg.reply("You are not one of the current players, please wait for the current game to finish to play...")
+            break
+        }
+        lastPlayer = msg.author.username
     }
     else{
         msg.reply("Bruh, I just said reply with !ttt <1-9> with 1 being the top left and 9 being the bottom right")
