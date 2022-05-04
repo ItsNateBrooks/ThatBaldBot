@@ -10,7 +10,7 @@ let playMark2
 let lastPlayer
 let displayBoard = [
         "#","-","-","-","#\n",
-        "|","1 ","2","3","|\n",
+        "|"," 1","2","3","|\n",
         "|","4","5","6","|\n",
         "|","7","8","9","|\n",
         "#","-","-","-","#\n",]
@@ -21,10 +21,6 @@ let trueBoard = [["0","1","2"],
 
 let player1 = ""
 let player2 = ""
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
 
 function reset(){
     boardSet = false
@@ -38,7 +34,7 @@ function reset(){
     lastPlayer = null
     displayBoard = [
             "#","-","-","-","#\n",
-            "|","1 ","2","3","|\n",
+            "|","1","2","3","|\n",
             "|","4","5","6","|\n",
             "|","7","8","9","|\n",
             "#","-","-","-","#\n",]
@@ -78,13 +74,21 @@ function checkRows(board){
     gameWon = col1 == true ? true : (col2 == true ? true : (col3 == true ? true : gameWon))
 }
 
-function checkWin(board, msg) {
+function checkTie(msg){
+    if(!boardSpaceMarked.includes(false)){
+        msg.reply(player1 +" and " + player2+ " both of yall suck and somehow managed to tie!")
+        reset()
+    }
+}
+
+function checkWin(board, msg, player) {
 
     checkDiags(board)
     checkColumns(board)
     checkRows(board)
+    checkTie(msg)
     if(gameWon == true){
-        msg.reply(lastPlayer + " has won, GG!")
+        msg.reply(player + " has won, GG!")
         reset()
     }
 }
@@ -132,9 +136,12 @@ function getCoordNums (loc) {
 
 module.exports = function (msg, args){
     
-    if(boardSet == false){
+    breakme: if(boardSet == false){
         msg.reply("Board Set:\n" + displayBoard.join(" ") + "\n Since this is a two player game, someone needs to be Xs and someone needs to be Os? (reply with !ttt X to be X or !ttt O to be O)")
         boardSet = true;
+    }else if(args[0] == "reset"){
+        reset()
+        break breakme;
     }else if(player1Set == false){
         if(args[0] == 'o'){
             playMark1 = "O"
@@ -162,17 +169,18 @@ module.exports = function (msg, args){
     }else if(playingGame && acceptedInputs.includes(args[0])){
         let cords = getCoordNums(args[0]).split(" ")
         
+        
         switch (msg.author.username){
             case (lastPlayer):
                 msg.reply("It is not your turn, please wait for the other player to make a move before you go...")
             break
             case (player1):
                 markHandler(msg, parseInt(args[0])-1, parseInt(getLocationNum(args[0])), parseInt(cords[0]), parseInt(cords[1]), playMark1)
-                checkWin(trueBoard, msg)
+                checkWin(trueBoard, msg, player1)
             break
             case (player2):
                 markHandler(msg, parseInt(args[0])-1, parseInt(getLocationNum(args[0])), parseInt(cords[0]), parseInt(cords[1]), playMark2)
-                checkWin(trueBoard, msg)
+                checkWin(trueBoard, msg, player2)
             break
             default:
                 msg.reply("You are not one of the current players, please wait for the current game to finish to play...")
