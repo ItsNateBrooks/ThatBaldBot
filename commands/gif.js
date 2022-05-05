@@ -8,7 +8,7 @@ module.exports = async function (msg, args){
         let index = Math.floor(Math.random() * json.results.length)
         msg.reply(json.results[index].url)
     }
-
+        
     if(args.includes("oof") ){
         msg.reply("https://tenor.com/view/thats-rough-buddy-avatar-the-last-airbender-zuko-gif-17596756")
     }

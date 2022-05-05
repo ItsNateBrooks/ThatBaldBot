@@ -1,3 +1,4 @@
+
 let boardSet = false
 let gameWon = false
 let playingGame = false
@@ -22,7 +23,9 @@ let trueBoard = [["0","1","2"],
 let player1 = ""
 let player2 = ""
 
-function reset(){
+
+
+function reset(msg){
     boardSet = false
     gameWon = false
     playingGame = false
@@ -45,6 +48,7 @@ function reset(){
     
     player1 = ""
     player2 = ""
+    msg.channel.send('TIC TAC TOE RESET!');
 }
 
 function compare3Vals(arg1, arg2, arg3) {
@@ -77,19 +81,18 @@ function checkRows(board){
 function checkTie(msg){
     if(!boardSpaceMarked.includes(false)){
         msg.reply(player1 +" and " + player2+ " both of yall suck and somehow managed to tie!")
-        reset()
+        reset(msg)
     }
 }
 
 function checkWin(board, msg, player) {
-
     checkDiags(board)
     checkColumns(board)
     checkRows(board)
     checkTie(msg)
     if(gameWon == true){
         msg.reply(player + " has won, GG!")
-        reset()
+        reset(msg)
     }
 }
 
@@ -135,12 +138,11 @@ function getCoordNums (loc) {
 
 
 module.exports = function (msg, args){
-    
     breakme: if(boardSet == false){
         msg.reply("Board Set:\n" + displayBoard.join(" ") + "\n Since this is a two player game, someone needs to be Xs and someone needs to be Os? (reply with !ttt X to be X or !ttt O to be O)")
         boardSet = true;
     }else if(args[0] == "reset"){
-        reset()
+        reset(msg)
         break breakme;
     }else if(player1Set == false){
         if(args[0] == 'o'){
@@ -149,22 +151,20 @@ module.exports = function (msg, args){
             player1Set = true
             playingGame = true
             player1 = msg.author.username
-            msg.reply("Player 1 ("+ playMark1 +"):\n" + player1 + "\n ")
-            //msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
+            msg.reply("Ok, Player 1 ("+ playMark1 +") is...\n" + player1 + "\n Who will be Player 2 ("+playMark2 +")?")
         }else if(args[0] == 'x'){
             playMark1 = "X"
             playMark2 = "O"
             player1Set = true
             playingGame = true
             player1 = msg.author.username
-            msg.reply("Player 1 ("+ playMark1 +"):\n" + player1 + "\n ")
-            //msg.reply("Ok, we are ready to play, select your first spot by typing !ttt <1-9> with 1 being the top left and 9 being the bottom right")
+            msg.reply("Ok, Player 1 ("+ playMark1 +") is...\n" + player1 + "\n Who will be Player 2 ("+playMark2 +")?")
         }else {
             msg.reply("Bruh, I just said reply with !ttt X or !ttt 0")
         }
     }else if(player2Set == false){
         player2 = msg.author.username
-        msg.reply("Player 2 ("+ playMark2 +"):\n" + player2 + "\n ")
+        msg.reply("Player 2 ("+ playMark2 +") is...\n" + player2 + "\n It is time to begin, "+player1 +" please make the first move by typing !ttt <1-9>")
         player2Set = true
     }else if(playingGame && acceptedInputs.includes(args[0])){
         let cords = getCoordNums(args[0]).split(" ")

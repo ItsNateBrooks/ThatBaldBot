@@ -14,7 +14,6 @@ const client = new Client({
 
 client.once('ready', () => {
     console.log('ThatBaldBot is online!')
-
 })
 
 const commandHandler = require("./commands")
