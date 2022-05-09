@@ -1,5 +1,6 @@
 # Name
 ThatBaldBot
+
 <img src="https://cdn.discordapp.com/attachments/522614657400176650/973034937760481290/ThatBaldBot_-_Background.png" width="200" height="200" />
 
 # Description
