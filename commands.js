@@ -7,16 +7,18 @@ const commands = {rps, gif, ttt}
 const commandsArr = ["rps", "gif", "ttt"]
 
 function arrayContains(arr, values) {
-    return values.every(value => {
-      return arr.includes(value);
-    });
+  for(let i = 0; i < values.length; i++){
+    if(arr.includes(values[i]))
+      return true
   }
+    return false
+}
 
 module.exports = function (msg){
     if(msg.author.bot) return;
     let tokens = msg.content.toLowerCase().split(" ")
-    
-    if(arrayContains(gifs, tokens) ){
+  
+    if(arrayContains(msg.content.toLowerCase(), gifs)){
         commands.gif(msg, tokens)
     }
 
