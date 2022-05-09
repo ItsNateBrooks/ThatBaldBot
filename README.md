@@ -1,6 +1,6 @@
 # Name
 ThatBaldBot
-![ThatBaldBot](https://cdn.discordapp.com/attachments/522614657400176650/973034937760481290/ThatBaldBot_-_Background.png)
+![ThatBaldBot](https://cdn.discordapp.com/attachments/522614657400176650/973034937760481290/ThatBaldBot_-_Background.png =100x100)
 
 # Description
 Discord Bot, currently responds to certain chat messages with gifs and also can play rock paper scissors and 
