@@ -13,11 +13,10 @@ Tic Tac Toe with the commands !rps and !ttt respectively.
 # Installation
 Currently I run the bot on my personal discord servers, but to run it for yourself make a git clone with the command 
 "git clone https://github.com/ItsNateBrooks/ThatBaldBot"
-then one file will need to be added which is the .env file, basically this contains my login info to both the Discord Developer Portal API and the TENOR Gif API.
-To make the .env required it is incredibly simple, first make a empty file with the .env extension and then edit the file and write the following
+then one file will need to be added which is the .env file, basically this contains the needed login info to both the Discord Developer Portal API and the TENOR Gif API.
+To make the required .env it is incredibly simple, first make a empty file with the .env extension and then format the file similair to the following screenshot:
 
-TOKEN = <YOUR DISCORD TOKEN>
-TENORKEY = <YOUR TENOR API TOKEN>
+![.env](https://cdn.discordapp.com/attachments/522614657400176650/973058484851601438/file.env.png)
   
 Save your .env file and make sure it is in the same folder as main.js
 To run the bot, navigate to the folder containing the main.js folder using command prompt or another text based file explorer and run the command node main.js.
