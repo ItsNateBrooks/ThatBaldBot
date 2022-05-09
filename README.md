@@ -31,5 +31,10 @@ For Tic Tac Toe simply typing !ttt, from there users will be instructed to do sp
 be a player in the game. For the user to select a spot they do !ttt <1-9> and then this places either an X or O in the spot they desired. Users will go back and
 forth until someone wins or if there is a tie.
 
-# Images
-
+# Example Images
+## Rock Paper Scissors Example
+![Rock Paper Scissors](https://cdn.discordapp.com/attachments/522614657400176650/973034214876385300/RockPaperScissors.PNG)
+## Tic Tac Toe Example
+![Tic Tac Toe](https://cdn.discordapp.com/attachments/522614657400176650/973034214612172861/ttt.PNG)
+## Oof Example
+![oof](https://cdn.discordapp.com/attachments/522614657400176650/973034215128068156/oof.PNG)
