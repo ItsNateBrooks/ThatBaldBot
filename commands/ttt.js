@@ -10,11 +10,11 @@ let playMark1
 let playMark2
 let lastPlayer
 let displayBoard = [
-        "#","-","-","-","#\n",
-        "|"," 1","2","3","|\n",
-        "|","4","5","6","|\n",
-        "|","7","8","9","|\n",
-        "#","-","-","-","#\n",]
+    ":one:",":white_medium_small_square:",":two:",":white_medium_small_square:",":three:\n",
+    ":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:\n",
+    ":four:",":white_medium_small_square:",":five:",":white_medium_small_square:",":six:\n",
+    ":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:\n",
+    ":seven:",":white_medium_small_square:",":eight:",":white_medium_small_square:",":nine:\n"]
 
 let trueBoard = [["0","1","2"],
                  ["3","4","5"],
@@ -36,11 +36,11 @@ function reset(msg){
     playMark2 = null
     lastPlayer = null
     displayBoard = [
-            "#","-","-","-","#\n",
-            "|","1","2","3","|\n",
-            "|","4","5","6","|\n",
-            "|","7","8","9","|\n",
-            "#","-","-","-","#\n",]
+        ":one:",":white_medium_small_square:",":two:",":white_medium_small_square:",":three:\n",
+        ":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:\n",
+        ":four:",":white_medium_small_square:",":five:",":white_medium_small_square:",":six:\n",
+        ":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:",":white_medium_small_square:\n",
+        ":seven:",":white_medium_small_square:",":eight:",":white_medium_small_square:",":nine:\n"]
     
     trueBoard = [["0","1","2"],
                      ["3","4","5"],
@@ -89,11 +89,14 @@ function checkWin(board, msg, player) {
     checkDiags(board)
     checkColumns(board)
     checkRows(board)
-    checkTie(msg)
     if(gameWon == true){
         msg.reply(player + " has won, GG!")
         reset(msg)
     }
+    else{
+        checkTie(msg)
+    }
+    
 }
 
 function markHandler (msg, boardMarkedIndex, disBoardLoc, trueBoardLoc1, trueBoardLoc2, playMark) {
@@ -101,9 +104,9 @@ function markHandler (msg, boardMarkedIndex, disBoardLoc, trueBoardLoc1, trueBoa
         msg.reply("Bruv, you can't just place where someone's already placed before, go again... ")
     }
     else{
-        displayBoard[disBoardLoc] = playMark
+        displayBoard[disBoardLoc] = boardMarkedIndex === 2 || boardMarkedIndex === 5 || boardMarkedIndex === 8 ? playMark+"\n" : playMark
         trueBoard[trueBoardLoc1][trueBoardLoc2] = playMark
-        msg.reply("Board:\n" + displayBoard.join(" ") + "\n ")
+        msg.reply("Board:\n" + displayBoard.join("") + "\n ")
         boardSpaceMarked[boardMarkedIndex] = true
     }
 }
@@ -123,15 +126,15 @@ function getCoordNums (loc) {
 }
   function getLocationNum (loc) {
     return {
-      1: '6',
-      2: '7',
-      3: '8',
-      4: '11',
+      1: '0',
+      2: '2',
+      3: '4',
+      4: '10',
       5: '12',
-      6: '13',
-      7: '16',
-      8: '17',
-      9: '18'
+      6: '14',
+      7: '20',
+      8: '22',
+      9: '24'
     }[loc]
 }
 
@@ -139,26 +142,26 @@ function getCoordNums (loc) {
 
 module.exports = function (msg, args){
     breakme: if(boardSet == false){
-        msg.reply("Board Set:\n" + displayBoard.join(" ") + "\n Since this is a two player game, someone needs to be Xs and someone needs to be Os? (reply with !ttt X to be X or !ttt O to be O)")
+        msg.reply("Board Set:\n" + displayBoard.join("") + "\n Since this is a two player game, someone needs to be ❎ and someone needs to be 🅾️? (reply with !ttt X to be ❎ or !ttt O to be 🅾️)")
         boardSet = true;
     }else if(args[0] == "reset"){
         reset(msg)
         break breakme;
     }else if(player1Set == false){
         if(args[0] == 'o'){
-            playMark1 = "O"
-            playMark2 = "X"
+            playMark1 = "🅾️"
+            playMark2 = "❎"
             player1Set = true
             playingGame = true
             player1 = msg.author.username
-            msg.reply("Ok, Player 1 ("+ playMark1 +") is...\n" + player1 + "\n Who will be Player 2 ("+playMark2 +")?")
+            msg.reply("Player "+ playMark1 +" is...\n" + player1 + "\n Who will be Player "+playMark2 +"?")
         }else if(args[0] == 'x'){
-            playMark1 = "X"
-            playMark2 = "O"
+            playMark1 = "❎"
+            playMark2 = "🅾️"
             player1Set = true
             playingGame = true
             player1 = msg.author.username
-            msg.reply("Ok, Player 1 ("+ playMark1 +") is...\n" + player1 + "\n Who will be Player 2 ("+playMark2 +")?")
+            msg.reply("Player "+ playMark1 +" is...\n" + player1 + "\n Who will be Player "+playMark2 +"?")
         }else {
             msg.reply("Bruh, I just said reply with !ttt X or !ttt 0")
         }
