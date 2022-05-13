@@ -28,9 +28,9 @@ Any mention of the following words: "boi", "oof", "xqc" or "valheim" will result
 For rock paper scissors simply typing !rps followed by either "rock", "paper" , or "scissors" will result in the bot responding with a random response by the bot of
 either rock, paper, or scissors followed by a statement that claims who wins or if there is a tie
   
-For Tic Tac Toe simply typing !ttt, from there users will be instructed to do specific thing like choosing being X or O and both players saying that they want to
-be a player in the game. For the user to select a spot they do !ttt <1-9> and then this places either an X or O in the spot they desired. Users will go back and
-forth until someone wins or if there is a tie.
+For Tic Tac Toe simply typing !ttt will begin setting up the game, from there users can react to a message sent by the bot to set themselves as either X or O in the
+game. For the user to select a spot during the game they can simply react to the message containing the game board and then this places either an X or O in the spot 
+they desired. Users will go back and forth until someone wins or if there is a tie.
 
 # Example Images
 ## Rock Paper Scissors Example
