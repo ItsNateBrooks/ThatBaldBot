@@ -36,6 +36,11 @@ they desired. Users will go back and forth until someone wins or if there is a t
 ## Rock Paper Scissors Example
 ![Rock Paper Scissors](https://cdn.discordapp.com/attachments/522614657400176650/973034214876385300/RockPaperScissors.PNG)
 ## Tic Tac Toe Example
-![Tic Tac Toe](https://cdn.discordapp.com/attachments/522614657400176650/973034214612172861/ttt.PNG)
+### Select Roles
+![Tic Tac Toe 1](https://cdn.discordapp.com/attachments/522614657400176650/975472109964886056/ttt.PNG)
+### Start TTT
+![Tic Tac Toe 2](https://cdn.discordapp.com/attachments/522614657400176650/975472578594488350/ttt_start.PNG)
+### Game End
+![Tic Tac Toe 3](https://cdn.discordapp.com/attachments/522614657400176650/975472109763575838/Game_Win.PNG)
 ## Oof Example
 ![oof](https://cdn.discordapp.com/attachments/522614657400176650/973034215128068156/oof.PNG)
