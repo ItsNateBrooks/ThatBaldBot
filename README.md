@@ -23,11 +23,14 @@ To run the bot, navigate to the folder containing the main.js folder using comma
 **NOTE** Certain things will need to be installed to run the node command
 
 # Usage
+## Gifs
 Any mention of the following words: "boi", "oof", "xqc" or "valheim" will result in the user being replied to with a specific gif
-  
+
+## Tic Tac Toe Example
 For rock paper scissors simply typing !rps followed by either "rock", "paper" , or "scissors" will result in the bot responding with a random response by the bot of
 either rock, paper, or scissors followed by a statement that claims who wins or if there is a tie
-  
+
+## Rock Paper Scissors
 For Tic Tac Toe simply typing !ttt will begin setting up the game, from there users can react to a message sent by the bot to set themselves as either X or O in the
 game. For the user to select a spot during the game they can simply react to the message containing the game board and then this places either an X or O in the spot 
 they desired. Users will go back and forth until someone wins or if there is a tie.
