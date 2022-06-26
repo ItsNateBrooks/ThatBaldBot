@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 module.exports = async function (msg, args){
 
     if(args.includes("xqc") || args.includes("valheim")){
-        let url = `https://g.tenor.com/v1/search?q=no-one-cares&key=${process.env.TENORKEY}}&limit=8`
+        let url = `https://g.tenor.com/v1/search?q=no-one-cares&key=${process.env.TENORKEY}&limit=8`
         let response = await fetch(url)
         let json = await response.json()
         let index = Math.floor(Math.random() * json.results.length)
